@@ -25,13 +25,6 @@ app.get('/words', (req, res) => {
   }
 })
 
-// this endpoint is to get all available pos (in case the current list have no verbs so react should hide the verbs button)
-app.get('/pos', (req, res) => {
-  res.status(200).json({
-    "pos": helpers.extractAvailableUniquePosFromList(testData.wordList)
-  })
-})
-
 app.post('/rank', (req, res) => {
   if (isNaN(req.body.score) || req.body.score > 100 || req.body.score < 0) {
     res.status(400).json({
