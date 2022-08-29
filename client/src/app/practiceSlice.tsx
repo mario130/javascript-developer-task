@@ -85,6 +85,7 @@ export const practiceSlice = createSlice({
 				state.currentQuestion = state.questions[state.currentQuestionIdx]
 			}
 		},
+		resetState: () => initialState
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchQuestions.pending, (state) => {
@@ -124,5 +125,5 @@ export const practiceSlice = createSlice({
 	}
 })
 
-export const { nextQuestion } = practiceSlice.actions
+export const { nextQuestion, resetState } = practiceSlice.actions
 export default practiceSlice.reducer

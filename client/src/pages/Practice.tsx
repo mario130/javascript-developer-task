@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchQuestions, nextQuestion, questionObj, submitScore } from "../app/practiceSlice";
+import { fetchQuestions, nextQuestion, questionObj, resetState, submitScore } from "../app/practiceSlice";
 import { RootState } from '../app/store';
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 export default function Practice() {
 	const dispatch = useDispatch();
 	useEffect(() => {
+		// @ts-ignore
+		dispatch(resetState());
 		// @ts-ignore
 		dispatch(fetchQuestions())
 	}, [])

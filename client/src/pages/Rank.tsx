@@ -1,13 +1,16 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Rank() {
+	const currentQuestionIdx: number = useSelector((state: RootState) => state.practice.currentQuestionIdx);
 	const rank: number | null = useSelector((state: RootState) => state.practice.rank);
 	const navigate = useNavigate();
 
-	if (!rank) navigate('/')
-	console.log(rank);
+	useEffect(()=> {
+		if (!currentQuestionIdx) navigate('/')
+	}, [])
 	
 
 	return (
@@ -21,6 +24,7 @@ export default function Rank() {
 					/>
 				</div>
 				<h1 className='text-2xl font-semibold my-4'>You've beaten {rank}% of your peers</h1>
+				<Link to={'/'}><button className="px-6 py-2 mt-4 w-full bg-pink-500 text-white m-auto rounded-lg">Try again</button></Link>
 			</div>
 		</div>
 	)
