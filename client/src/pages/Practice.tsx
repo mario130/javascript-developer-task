@@ -1,58 +1,69 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchQuestions, nextQuestion} from "../app/practiceSlice";
-import {RootState} from '../app/store';
-import {useEffect} from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchQuestions, nextQuestion, questionObj, submitScore } from "../app/practiceSlice";
+import { RootState } from '../app/store';
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
-export type RatingProps = {
-    currentQuestionIdx?: number
-}
+export default function Practice() {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		// @ts-ignore
+		dispatch(fetchQuestions())
+	}, [])
+	const navigate = useNavigate();
 
-export default function Rating() {
-    const dispatch = useDispatch();
+	const currentQuestionIdx: number = useSelector((state: RootState) => state.practice.currentQuestionIdx);
+	const currentQuestion: questionObj = useSelector((state: RootState) => state.practice.questions[currentQuestionIdx]);
+	const wasLastAnswerCorrect: boolean = useSelector((state: RootState) => state.practice.wasLastAnswerCorrect);
+	const score: number = useSelector((state: RootState) => state.practice.score);
 
-    useEffect(()=> {
-        // @ts-ignore
-        dispatch(fetchQuestions())
-    }, [])
+	const posValues = ['adjective', 'adverb', 'noun', 'verb']
 
-    const currentQuestionIdx = useSelector((state: RootState) => state.practice.currentQuestionIdx);
-    const currentQuestion = useSelector((state: RootState) => state.practice.questions[currentQuestionIdx]);
+	function onSelectAnswer(ans: string) {
+		dispatch(nextQuestion(ans));
 
-    const posValues = ['adjective', 'adverb', 'noun',  'verb']
-    function onChangeRating() {
-        dispatch(nextQuestion(2));
-    }
+		if (currentQuestionIdx === 9) {
+			// Submit score
+			// BUG - TODO: last question's score is not added so we check it manually
+			let add1 = false
+			if (currentQuestion.pos === ans) add1 = true
+			// @ts-ignore
+			dispatch(submitScore(add1 ? score + 1 : score))
+			console.log(`Submitted score ${score}`);
+			navigate('/rank')
+		}
+	}
 
-    return (
-        <div className='m-auto bg-secondary rounded-2xl p-6 max-w-sm text-white'>
-            <div className='rounded-3xl w-fit'>
-                <img
-                    width="40"
-                    src="/nagwa.png"
-                    alt="star icon"
-                />
-            </div>
-            <h1 className='text-2xl font-semibold my-4'>Which part of speech does this word belong to?</h1>
-            <p className='text-true-gray-400 text-center py-4'>{currentQuestion ? currentQuestion.word : ''}</p>
-            {/* choice buttons */}
-            <div className='flex flex-wrap pt-6 justify-between'>
-                {
-                    posValues.map(pos =>
-                        <div className={''}>
-                            <button
-                                key={pos}
-                                onClick={onChangeRating}
-                                value={pos}
-                                className={`
-                                     hover:bg-gray-500 
-                                    active:bg-primary active:text-white transition-all  p-2 `
-                                }
-                            >{`${pos}`}
-                            </button>
-                        </div>
-                    )
-                }
-            </div>
-        </div>
-    )
+	return (
+		<div className='m-auto'>
+			<div className='mx-4 bg-secondary rounded-2xl p-6 max-w-sm text-white'>
+			<div className='rounded-3xl w-fit'>
+				<img
+					width="40"
+					src="/nagwa.png"
+					alt="star icon"
+				/>
+			</div>
+			<h1 className='text-2xl font-semibold my-4'>Which part of speech does this word belong to?</h1>
+			<p className='text-pink-500 underline font-bold text-center py-4'>{currentQuestion ? currentQuestion.word : ''}</p>
+			{/* choice buttons */}
+			<div className='flex items-stretch flex-wrap pt-6 justify-between'>
+				{
+					currentQuestionIdx < 10 && posValues.map(pos =>
+						<button
+							key={pos}
+							onClick={() => onSelectAnswer(pos)}
+							value={pos}
+							className={"hover:bg-gray-500 active:bg-primary active:text-white transition-all  p-2 mb-4 grow rounded-lg"}
+						>{`${pos}`}
+						</button>
+					)
+				}
+				<div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+					<div className={` ${wasLastAnswerCorrect ? 'bg-green-500' : 'bg-red-500'} h-2.5 rounded-full transition-all`} style={{ "width": (currentQuestionIdx / 10) * 100 + "%" }}></div>
+				</div>
+			</div>
+			</div>
+		</div>
+	)
 }
