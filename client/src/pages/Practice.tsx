@@ -38,7 +38,7 @@ export default function Practice() {
 
 	return (
 		<div className='m-auto'>
-			<div className='mx-4 bg-secondary rounded-2xl p-6 max-w-sm text-white'>
+			<div className='mx-4 bg-secondary rounded-2xl p-6 max-w-sm text-white shadow-2xl'>
 			<div className='rounded-3xl w-fit'>
 				<img
 					width="40"
@@ -56,7 +56,7 @@ export default function Practice() {
 							key={pos}
 							onClick={() => onSelectAnswer(pos)}
 							value={pos}
-							className={"hover:bg-gray-500 active:bg-primary active:text-white transition-all  p-2 mb-4 grow rounded-lg"}
+							className={"hover:bg-gray-600 active:bg-primary active:text-white transition-all  p-2 mb-4 grow rounded-lg"}
 						>{`${pos}`}
 						</button>
 					)

@@ -15,7 +15,7 @@ export default function Rank() {
 
 	return (
 		<div className='m-auto'>
-			<div className='mx-4 bg-secondary rounded-2xl p-6 max-w-sm text-white'>
+			<div className='mx-4 bg-secondary rounded-2xl p-6 max-w-sm text-white shadow-2xl'>
 				<div className='rounded-3xl w-fit'>
 					<img
 						width="40"
@@ -23,7 +23,7 @@ export default function Rank() {
 						alt="star icon"
 					/>
 				</div>
-				<h1 className='text-2xl font-semibold my-4'>You've beaten {rank}% of your peers</h1>
+				<h1 className='text-2xl font-semibold my-4'>You've beaten {rank}% of your peers!</h1>
 				<Link to={'/'}><button className="px-6 py-2 mt-4 w-full bg-pink-500 text-white m-auto rounded-lg">Try again</button></Link>
 			</div>
 		</div>
