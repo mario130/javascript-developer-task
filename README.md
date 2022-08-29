@@ -23,3 +23,8 @@ In the Homepage:
 
 In the Ranking screen:
 - After finishing the test, the student can see how he ranks against his peers and he has the option to take the exam again
+
+---
+## Screenshots
+![Homepage](client/public/screenshots/nagwa-1.png)
+![Ranking](client/public/screenshots/nagwa-2.png)
