@@ -32,7 +32,7 @@ module.exports = {
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
-      'primary': '#f87812',
+      'primary': '#0073b7',
       'secondary': '#1c232d',
     },
     extend: {}
