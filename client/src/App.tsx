@@ -9,6 +9,9 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
+        <h1 className="text-3xl font-bold underline">
+          Hello world!
+        </h1>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -55,4 +58,5 @@ function App() {
   );
 }
 
+// @ts-ignore
 export default App;
