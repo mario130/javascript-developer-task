@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const testData = require('./TestData.json')
-const getRandomWords = require('./helpers').getRandomWords
+const helpers = require('./helpers')
 
 const app = express()
 
@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.get('/words', (req, res) => {
   // we make a copy as we shouldn't edit the main list
   const wordListCopy = testData.wordList.slice()
-  const chosenWords = getRandomWords(wordListCopy, 10)
+  const chosenWords = helpers.getRandomWords(wordListCopy, 10)
 
   if (!chosenWords) {
     res.status(500).json({
@@ -21,6 +21,13 @@ app.get('/words', (req, res) => {
   } else {
     res.status(200).json(chosenWords)
   }
+})
+
+// this endpoint is to get all available pos (in case the current list have no verbs so react should hide the verbs button)
+app.get('/pos', (req, res) => {
+  res.status(200).json({
+    "pos": helpers.extractAvailableUniquePosFromList(testData.wordList)
+  })
 })
 
 app.post('/rank', (req, res) => {

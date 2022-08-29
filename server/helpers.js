@@ -2,7 +2,7 @@ const getRandomWords = (list, numOfWords = 10) => {
   if (list.length < numOfWords) return
 
   // get all unique POS values from the current words list
-  const AVAILABLE_POS_IN_LIST = [...new Set(list.map(word => word.pos))]
+  const AVAILABLE_POS_IN_LIST = extractAvailableUniquePosFromList(list)
   let occurrencesPerPos = {}, // will track occurrence of each pos
     chosenWords = []
 
@@ -26,4 +26,6 @@ const getRandomWords = (list, numOfWords = 10) => {
   return chosenWords
 }
 
-module.exports = {getRandomWords}
+const extractAvailableUniquePosFromList = list => [...new Set(list.map(word => word.pos))]
+
+module.exports = {getRandomWords, extractAvailableUniquePosFromList}
