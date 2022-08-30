@@ -20,6 +20,7 @@ export default function Practice() {
 	const currentQuestion: QuestionObj = useSelector((state: RootState) => state.practice.questions[currentQuestionIdx]);
 	const wasLastAnswerCorrect: boolean = useSelector((state: RootState) => state.practice.wasLastAnswerCorrect);
 	const score: number = useSelector((state: RootState) => state.practice.score);
+	const loading: string = useSelector((state: RootState) => state.practice.loading);
 
 	const posValues = ['adjective', 'adverb', 'noun', 'verb']
 
@@ -46,18 +47,23 @@ export default function Practice() {
 						alt="star icon"
 					/>
 				</div>
-				<h1 className='text-2xl font-semibold my-4'>Which part of speech does this word belong to?</h1>
-				<p className='text-pink-500 underline font-bold text-center py-4'>{currentQuestion ? currentQuestion.word : ''}</p>
+				{loading === 'loading'
+					? 'Loading'
+					: <div>
+						<h1 className='text-2xl font-semibold my-4'>{currentQuestion ? "Which part of speech does this word belong to?" : "Couldn't connect to the server."}</h1>
+						{currentQuestion && <p className='text-pink-500 underline font-bold text-center py-4'>{currentQuestion.word}</p>}
 
-				{/* choice buttons */}
-				<div className='flex items-stretch flex-wrap pt-6 justify-between'>
-					{currentQuestionIdx < 10 && posValues.map(pos =>
-						PoSButton(pos, onSelectAnswer)
-					)}
-					<div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-						<div className={` ${wasLastAnswerCorrect ? 'bg-green-500' : 'bg-red-500'} h-2.5 rounded-full transition-all`} style={{ "width": (currentQuestionIdx / 10) * 100 + "%" }}></div>
-					</div>
-				</div>
+						{/* choice buttons */}
+						{currentQuestion && <div className='flex items-stretch flex-wrap pt-6 justify-between'>
+							{currentQuestionIdx < 10 && posValues.map(pos =>
+								PoSButton(pos, onSelectAnswer)
+							)}
+							<div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+								<div className={` ${wasLastAnswerCorrect ? 'bg-green-500' : 'bg-red-500'} h-2.5 rounded-full transition-all`} style={{ "width": (currentQuestionIdx / 10) * 100 + "%" }}></div>
+							</div>
+						</div>
+						}
+					</div>}
 			</div>
 		</div>
 	)

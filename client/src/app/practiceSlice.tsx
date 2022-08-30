@@ -7,7 +7,7 @@ const initialState: PracticeState = {
 	currentQuestion: null,
 	score: 0,
 	questions: [],
-	loading: 'idle',
+	loading: 'loading',
 	error: "",
 	rank: null,
 	wasLastAnswerCorrect: true
