@@ -23,7 +23,7 @@ export default function Rank() {
 						alt="star icon"
 					/>
 				</div>
-				<h1 className='text-2xl font-semibold my-4'>You've beaten {rank}% of your peers!</h1>
+				<h1 className='text-2xl font-semibold my-4'>{rank! >= 70 ? "Excellent" : rank! >= 50 ? 'Good job' : 'Try harder'}, You've beaten {rank}% of your peers!</h1>
 				<Link to={'/'}><button className="px-6 py-2 mt-4 w-full bg-pink-500 text-white m-auto rounded-lg">Try again</button></Link>
 			</div>
 		</div>

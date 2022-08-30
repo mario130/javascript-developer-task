@@ -1,22 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from "axios";
-
-export interface questionObj {
-	id: number,
-	word: string,
-	pos: string
-}
-
-export interface PracticeState {
-	currentQuestionIdx: number,
-	currentQuestion: questionObj | null,
-	score: number,
-	questions: questionObj[],
-	loading: string,
-	error: string,
-	rank: number | null,
-	wasLastAnswerCorrect: boolean
-}
+import { PracticeState } from '../types/PracticeState';
 
 const initialState: PracticeState = {
 	currentQuestionIdx: 0,

@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchQuestions, nextQuestion, questionObj, resetState, submitScore } from "../app/practiceSlice";
+import { fetchQuestions, nextQuestion, resetState, submitScore } from "../app/practiceSlice";
+import { QuestionObj } from "../types/QuestionObj";
 import { RootState } from '../app/store';
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { PoSButton } from '../components/PoSButton';
 
 export default function Practice() {
 	const dispatch = useDispatch();
@@ -15,7 +17,7 @@ export default function Practice() {
 	const navigate = useNavigate();
 
 	const currentQuestionIdx: number = useSelector((state: RootState) => state.practice.currentQuestionIdx);
-	const currentQuestion: questionObj = useSelector((state: RootState) => state.practice.questions[currentQuestionIdx]);
+	const currentQuestion: QuestionObj = useSelector((state: RootState) => state.practice.questions[currentQuestionIdx]);
 	const wasLastAnswerCorrect: boolean = useSelector((state: RootState) => state.practice.wasLastAnswerCorrect);
 	const score: number = useSelector((state: RootState) => state.practice.score);
 
@@ -52,13 +54,7 @@ export default function Practice() {
 			<div className='flex items-stretch flex-wrap pt-6 justify-between'>
 				{
 					currentQuestionIdx < 10 && posValues.map(pos =>
-						<button
-							key={pos}
-							onClick={() => onSelectAnswer(pos)}
-							value={pos}
-							className={"hover:bg-gray-600 active:bg-primary active:text-white transition-all  p-2 mb-4 grow rounded-lg"}
-						>{`${pos}`}
-						</button>
+						PoSButton(pos, onSelectAnswer)
 					)
 				}
 				<div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
@@ -69,3 +65,4 @@ export default function Practice() {
 		</div>
 	)
 }
+
