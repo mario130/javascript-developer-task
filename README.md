@@ -26,5 +26,5 @@ In the Ranking screen:
 
 ---
 ## Screenshots
-![Homepage](client/public/screenshots/nagwa-1.png)
-![Ranking](client/public/screenshots/nagwa-2.png)
+![Homepage](client/public/screenshots/nagwa-3.png)
+![Ranking](client/public/screenshots/nagwa-4.png)

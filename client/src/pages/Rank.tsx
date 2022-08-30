@@ -9,6 +9,7 @@ export default function Rank() {
 	const navigate = useNavigate();
 
 	useEffect(()=> {
+		// In case of direct visit to this page go to the homepage
 		if (!currentQuestionIdx) navigate('/')
 	}, [])
 	

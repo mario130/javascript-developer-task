@@ -22,5 +22,4 @@ function App() {
   );
 }
 
-// @ts-ignore
 export default App;

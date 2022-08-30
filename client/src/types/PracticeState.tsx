@@ -1,6 +1,5 @@
 import { QuestionObj } from './QuestionObj';
 
-
 export interface PracticeState {
 	currentQuestionIdx: number;
 	currentQuestion: QuestionObj | null;

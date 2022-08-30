@@ -6,7 +6,7 @@ const cors=require('cors');
 
 const app = express()
 
-// Middleware
+// Middlewares
 app.use(bodyParser.json());
 app.use(cors("*"));
 
@@ -16,6 +16,7 @@ app.get('/words', (req, res) => {
   const wordListCopy = testData.wordList.slice()
   const chosenWords = helpers.getRandomWords(wordListCopy, 10)
 
+	// In case we ask for more words than the list's length, return an error
   if (!chosenWords) {
     res.status(500).json({
       "error": "List count is lower than the required words count."
